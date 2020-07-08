@@ -5,6 +5,8 @@ import numpy as np
 from joblib import load
 from tkinter import *
 from tkinter import messagebox
+from neural_net import NNClassifier
+
 Tk().wm_withdraw()
 pygame.init()
 pygame.display.set_caption('Digit Recognition')
@@ -14,7 +16,13 @@ fpsClock = pygame.time.Clock()
 surface = pygame.display.set_mode((560, 560))
 canvas = np.zeros((56, 56))
 block_length = 10
+# sklearn model
 model = load('data/mlp.joblib')
+
+# personal model
+# model = NNClassifier(hidden_layer_sizes=[300], lammy=0.01, epochs=20, verbose=True)
+# model.layer_sizes = [784] + model.hidden_layer_sizes + [10]
+# model.load("data/nnclassifier.txt")
 
 
 def fillSquare(canvas, i, j):
@@ -48,7 +56,7 @@ if __name__ == '__main__':
         elif event.type == pygame.KEYDOWN:
             if event.key == pygame.K_SPACE:
                 y_hat = model.predict([compress(canvas).flatten()])[0]
-                messagebox.showinfo('Prediction', y_hat)
+                messagebox.showinfo('Prediction', str(y_hat))
                 canvas.fill(0)
 
       if pygame.mouse.get_pressed()[0]:

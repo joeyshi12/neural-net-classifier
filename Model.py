@@ -5,6 +5,7 @@ import argparse
 import numpy as np
 from joblib import dump
 from sklearn.neural_network import MLPClassifier
+from neural_net import NNClassifier
 
 if __name__ == '__main__':
     parser = argparse.ArgumentParser()
@@ -19,7 +20,8 @@ if __name__ == '__main__':
     print("n =", X.shape[0])
     print("d =", X.shape[1])
 
-    if question == 'mlp':
+
+    if question == 'sklearn':
         model = MLPClassifier(hidden_layer_sizes=(300,300), verbose=True)
         model.fit(X, y)
 
@@ -33,4 +35,17 @@ if __name__ == '__main__':
         testError = np.mean(yhat != ytest)
         print("Test error     = ", testError)
 
-        dump(model, 'data/mlp.joblib')
+
+    if question == 'personal':
+        model = NNClassifier(hidden_layer_sizes=[300], lammy=0.01, epochs=20, verbose=True)
+        model.fit(X, y)
+
+        # Compute training error
+        yhat = model.predict(X)
+        trainError = np.mean(yhat != y)
+        print("Training error = ", trainError)
+
+        # Compute test error
+        yhat = model.predict(Xtest)
+        testError = np.mean(yhat != ytest)
+        print("Test error     = ", testError)
