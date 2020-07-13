@@ -17,12 +17,12 @@ surface = pygame.display.set_mode((560, 560))
 canvas = np.zeros((56, 56))
 block_length = 10
 # sklearn model
-model = load('data/mlp.joblib')
+model = load('trained_models/mlp.joblib')
 
 # personal model
 # model = NNClassifier(hidden_layer_sizes=[300], lammy=0.01, epochs=20, verbose=True)
 # model.layer_sizes = [784] + model.hidden_layer_sizes + [10]
-# model.load("data/nnclassifier.txt")
+# model.load("trained_models/nnclassifier.txt")
 
 
 def fillSquare(canvas, i, j):
