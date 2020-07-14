@@ -61,14 +61,15 @@ if __name__ == '__main__':
         # model.fit(X, y)
         # dump(model, 'trained_models/kmeans.joblib')
 
-        model = load('trained_models/kmeans.joblib')
+        model_nn = load('trained_models/mlp.joblib')
+        model_kmeans = load('trained_models/kmeans.joblib')
 
         fig, ax = plt.subplots(2,5)
         for i in range(2):
             for j in range(5):
-                im = 1 - model.cluster_centers_[i * 5 + j]
-                ax[i, j].set_title('Class %d' %(i * 5 + j))
-                ax[i, j].imshow(im.reshape((28, 28)), cmap='gray')
+                im = model_kmeans.cluster_centers_[i * 5 + j]
+                ax[i, j].set_title('Digit: %d' %(model_nn.predict([im])[0]))
+                ax[i, j].imshow(1 - im.reshape((28, 28)), cmap='gray')
         fig.tight_layout()
         plt.savefig('figs/kmeans.png')
 
