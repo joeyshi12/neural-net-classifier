@@ -25,7 +25,6 @@ if __name__ == '__main__':
     print("n =", X.shape[0])
     print("d =", X.shape[1])
 
-
     if question == 'sklearn':
         model = MLPClassifier(hidden_layer_sizes=(300,300), verbose=True)
         model.fit(X, y)

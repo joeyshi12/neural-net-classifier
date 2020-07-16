@@ -2,10 +2,11 @@ import sys
 import pygame
 from pygame.locals import *
 import numpy as np
+import matplotlib.pyplot as plt
 from joblib import load
 from tkinter import *
 from tkinter import messagebox
-from neural_net import NNClassifier
+from model.neural_net import NNClassifier
 
 Tk().wm_withdraw()
 pygame.init()
