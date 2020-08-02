@@ -1,3 +1,5 @@
+[![Gitpod ready-to-code](https://img.shields.io/badge/Gitpod-ready--to--code-blue?logo=gitpod)](https://gitpod.io/#https://github.com/joeyshi12/digit-recognition)
+
 # digit-recognition
 
 An implementation of a neural net classifier and a framework for interacting with digit recognition models. 
