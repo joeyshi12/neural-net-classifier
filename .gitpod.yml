@@ -1,12 +1,6 @@
 image:
   file: .gitpod.Dockerfile
 
-<<<<<<< HEAD
-=======
-ports:
-  - port: 3000-8999
-
->>>>>>> 78a177d15b32f4d70b3477c51724f5c23f6968eb
 tasks:
   - init: pip3 install -r requirements.txt
     command: 'echo "TODO: Replace with command to start project"'
