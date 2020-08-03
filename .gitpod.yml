@@ -3,5 +3,5 @@ image:
 
 tasks:
   - init: pip install -r ./requirements.txt
-  - command: jupyter notebook --NotebookApp.allow_origin=\'$(gp url 8888)\'
+    command: jupyter notebook --NotebookApp.allow_origin=\'$(gp url 8888)\'
   
