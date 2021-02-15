@@ -2,7 +2,7 @@
 
 # digit-recognition
 
-A mathematical explanation and implementation of a neural net classifier. A Pygame application for drawing numbers and making predictions with the model is provided for testing purposes. 
+A mathematical explanation and implementation of a neural net classifier for recognizing hand-drawn digits. A Pygame application for drawing numbers and making predictions with the model is provided for testing purposes. 
 
 **Usage**: hold down the left mouse-click to start drawing on the window. Press space-bar to clear the window and display your model's prediction. 
 
