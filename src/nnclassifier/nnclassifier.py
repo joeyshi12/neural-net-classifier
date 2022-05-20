@@ -25,7 +25,11 @@ def unflatten_weights(weights_flat, layer_sizes):
 
 
 class NNClassifier:
-    def __init__(self, hidden_layer_sizes=[100], alpha=0.001, lammy=1, epochs=10, verbose=False):
+    def __init__(self, hidden_layer_sizes=None, alpha=0.001, lammy=1, epochs=10, verbose=False):
+        self.layer_sizes = None
+        self.weights = None
+        if hidden_layer_sizes is None:
+            hidden_layer_sizes = [100]
         self.hidden_layer_sizes = hidden_layer_sizes
         self.alpha = alpha
         self.lammy = lammy
@@ -69,7 +73,7 @@ class NNClassifier:
         weights_flat = 0.01 * np.random.randn(size)
 
         num_batches = 100
-        for _ in tqdm(range(self.epochs), desc="epoch"):
+        for _ in tqdm(range(self.epochs), desc="Epoch"):
             reordered_indices = np.random.choice(X.shape[0], size=X.shape[0], replace=False)
             for i in range(num_batches):
                 batch = reordered_indices[i * X.shape[0] // num_batches: (i + 1) * X.shape[0] // num_batches]
@@ -85,6 +89,3 @@ class NNClassifier:
             Z = X @ W.T + b
             X = 1 / (1 + np.exp(-Z))
         return np.argmax(Z, axis=1)
-
-    def save(self, filename: str):
-        pass
