@@ -14,16 +14,16 @@ class PaintManager:
     def __init__(self, surface: pg.Surface, clock: pg.time.Clock, model: NNClassifier, heading_size: int):
         pg.init()
         pg.display.set_caption("Digit Recognition")
-        self.font = pg.font.SysFont("lucidaconsole", 16)
-        surface.fill((255, 255, 255))
+        self.font = pg.font.SysFont("lucidaconsole", 16, bold=True)
         self.surface = surface
         self.clock = clock
+        self.model = model
+        self.heading_size = heading_size
 
         width, height = surface.get_size()
+        surface.fill((255, 255, 255))  # fill surface with white pixels
+        pg.draw.rect(surface, (160, 160, 160), (0, 0, width, heading_size))  # fill heading area with grey pixels
         self.canvas = np.zeros((width // self.unit_length, width // self.unit_length))
-        self.model = model
-        self.prediction_message = None
-        self.heading_size = heading_size
 
     def handle_event(self, event: pg.event.Event) -> None:
         if event.type == pg.QUIT:
@@ -70,11 +70,11 @@ class PaintManager:
                 data[i][j] = np.average(
                     self.canvas[cell_length * i:cell_length * (i + 1), cell_length * j:cell_length * (j + 1)]
                 )
-        digit = self.model.predict(data.flatten())[0]
+        digit = self.model.predict([data.flatten()])[0]
         width, _ = self.surface.get_size()
-        pg.draw.rect(self.surface, (255, 255, 255), (0, 0, width, self.heading_size))
-        self.prediction_message = self.font.render(f"Digit: {digit}", True, (0, 0, 0))
-        self.surface.blit(self.prediction_message, (10, 10))
+        pg.draw.rect(self.surface, (160, 160, 160), (0, 0, width, self.heading_size))
+        prediction_message = self.font.render(f"Digit: {digit}", True, (0, 0, 0))
+        self.surface.blit(prediction_message, (10, 10))
 
     def clear(self):
         for row in self.canvas:
