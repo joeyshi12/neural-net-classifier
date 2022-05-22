@@ -18,6 +18,11 @@ Test the accuracy of one of the provided trained models
 nnc view models/example1.model
 ```
 
+**Controls**
+- Clear canvas: c
+- Guess digit with model: <space>
+
+
 Train your own neural net model using the provided mnist data set
 ```bash
 nnc train data/mnist.pkl.gz
