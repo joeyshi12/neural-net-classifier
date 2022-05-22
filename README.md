@@ -20,7 +20,7 @@ nnc view models/example1.model
 
 **Controls**
 - Clear canvas: c
-- Guess digit with model: <space>
+- Guess digit with model: \<space\>
 
 
 Train your own neural net model using the provided mnist data set
