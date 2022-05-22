@@ -1,11 +1,26 @@
-[![Gitpod ready-to-code](https://img.shields.io/badge/Gitpod-ready--to--code-blue?logo=gitpod)](https://gitpod.io/#https://github.com/joeyshi12/digit-recognition)
+# neural-net-classifier
 
-# digit-recognition
+A mathematical description and implementation of a neural net classifier for recognizing hand-drawn digits.
 
-A mathematical explanation and implementation of a neural net classifier for recognizing hand-drawn digits. A Pygame application for drawing numbers and making predictions with the model is provided for testing purposes. 
+<img src="images/demo.png" alt="demo"/>
 
-**Usage**: hold down the left mouse-click to start drawing on the window. Press space-bar to clear the window and display your model's prediction. 
+## Getting Started
 
-The theory behind the implementation is provided in ```theory/neural_network.pdf``` or at https://www.overleaf.com/read/pmmpbrkcbssm
+Clone and install `nnc` from source
+```bash
+git clone https://github.com/joeyshi12/neural-net-classifier.git
+cd neural-net-classifier
+pip install -e .
+```
 
-<img src='https://user-images.githubusercontent.com/46363213/86312245-2026d500-bbd7-11ea-95ba-2e7def61d469.PNG' height='400'>
+Test the accuracy of one of the provided trained models
+```bash
+nnc view models/example1.model
+```
+
+Train your own neural net model using the provided mnist data set
+```bash
+nnc train data/mnist.pkl.gz
+```
+
+View other options with `nnc -h`
