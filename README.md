@@ -25,7 +25,7 @@ nnc view models/example1.model
 
 Train your own neural net model using the provided mnist data set
 ```bash
-nnc train data/mnist.pkl.gz
+nnc train data/mnist.pkl.gz myclassifier.model
 ```
 
 View other options with `nnc -h`
