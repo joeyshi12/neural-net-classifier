@@ -2,7 +2,7 @@ from tqdm import tqdm
 import numpy as np
 from sklearn.preprocessing import LabelBinarizer
 
-from nnc.util import unflatten_weights, flatten_weights, relu, relu_prime, sigmoid, sigmoid_prime
+from nnc.util import unflatten_weights, flatten_weights, sigmoid, sigmoid_prime
 
 
 class NNClassifier:
