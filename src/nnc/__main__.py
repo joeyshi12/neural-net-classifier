@@ -3,7 +3,7 @@ import gzip
 import pickle
 import joblib
 import numpy as np
-from nnclassifier.nnclassifier import NNClassifier
+from nnc.nnclassifier import NNClassifier
 
 
 def train_model(infile: str, outfile: str) -> None:
@@ -11,11 +11,19 @@ def train_model(infile: str, outfile: str) -> None:
         train_set, valid_set, test_set = pickle.load(file, encoding="latin1")
 
     X, y = train_set
-    X_test, y_test = test_set
     n, d = X.shape
     print(f"n = {n}, d = {d}")
-    model = NNClassifier()
+    model = NNClassifier(verbose=True)
     model.fit(X, y)
+    eval_model(model, train_set, test_set)
+
+    # Save model
+    joblib.dump(model, outfile)
+
+
+def eval_model(model: NNClassifier, train_set, test_set):
+    X, y = train_set
+    X_test, y_test = test_set
 
     # Compute training error
     yhat = model.predict(X)
@@ -27,9 +35,6 @@ def train_model(infile: str, outfile: str) -> None:
     test_error = np.mean(yhat != y_test)
     print(f"Test error = {test_error}")
 
-    # Save model
-    joblib.dump(model, outfile)
-
 
 def main():
     parser = argparse.ArgumentParser()
@@ -38,6 +43,10 @@ def main():
     train_parser.add_argument("infile", help="File path to zip training data")
     train_parser.add_argument("outfile", help="Path to output weights", default="model.npy")
 
+    eval_parser = subparsers.add_parser("eval")
+    eval_parser.add_argument("model_file", help="File path to model weights")
+    eval_parser.add_argument("data", help="File path to testing data")
+
     view_parser = subparsers.add_parser("view")
     view_parser.add_argument("model_file", help="File path to model weights")
 
@@ -45,8 +54,13 @@ def main():
 
     if args.command == "train":
         train_model(args.infile, args.outfile)
+    elif args.command == "eval":
+        model = joblib.load(args.model_file)
+        with gzip.open(args.data) as file:
+            train_set, _, test_set = pickle.load(file, encoding="latin1")
+            eval_model(model, train_set, test_set)
     else:
-        from nnclassifier.paint import paint_loop
+        from nnc.paint import paint_loop
         paint_loop(args.model_file)
 
 
