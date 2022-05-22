@@ -97,15 +97,3 @@ def paint_loop(model_file: str) -> None:
         for event in pg.event.get():
             manager.handle_event(event)
         manager.update()
-
-
-def compress(canvas_data: List[List[int]]) -> np.ndarray:
-    compressed_canvas = np.zeros((len(canvas_data) // 2, len(canvas_data[0]) // 2))
-    rows, cols = compressed_canvas.shape
-    for i in range(rows):
-        for j in range(cols):
-            compressed_canvas[i][j] = (canvas_data[2 * i][2 * j]
-                                       + canvas_data[2 * i + 1][2 * j]
-                                       + canvas_data[2 * i][2 * j + 1]
-                                       + canvas_data[2 * i + 1][2 * j + 1]) / 4
-    return compressed_canvas
