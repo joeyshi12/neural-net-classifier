@@ -7,22 +7,21 @@ from nnc.nnclassifier import NNClassifier
 
 
 class PaintManager:
-    radius: int = 24
-    unit_length: int = 4
+    RADIUS: int = 24
+    UNIT_LENGTH: int = 4
 
-    def __init__(self, surface: pg.Surface, clock: pg.time.Clock, model: NNClassifier, heading_size: int):
+    def __init__(self, model: NNClassifier, width: int, heading_size: int):
         pg.init()
         pg.display.set_caption("Digit Recognition")
         self.font = pg.font.SysFont("lucidaconsole", 16, bold=True)
-        self.surface = surface
-        self.clock = clock
+        self.surface = pg.display.set_mode((width, width + heading_size))
+        self.clock=pg.time.Clock()
         self.model = model
         self.heading_size = heading_size
 
-        width, height = surface.get_size()
-        surface.fill((255, 255, 255))  # fill surface with white pixels
-        pg.draw.rect(surface, (160, 160, 160), (0, 0, width, heading_size))  # fill heading area with grey pixels
-        self.canvas = np.zeros((width // self.unit_length, width // self.unit_length))
+        self.surface.fill((255, 255, 255))  # fill surface with white pixels
+        pg.draw.rect(self.surface, (160, 160, 160), (0, 0, width, heading_size))  # fill heading area with grey pixels
+        self.canvas = np.zeros((width // self.UNIT_LENGTH, width // self.UNIT_LENGTH))
 
     def handle_event(self, event: pg.event.Event) -> None:
         if event.type == pg.QUIT:
@@ -37,27 +36,27 @@ class PaintManager:
     def update(self):
         if pg.mouse.get_pressed()[0]:
             x, y = pg.mouse.get_pos()
-            row = (y - self.heading_size) // self.unit_length
-            col = x // self.unit_length
+            row = (y - self.heading_size) // self.UNIT_LENGTH
+            col = x // self.UNIT_LENGTH
             self.draw(row, col)
         pg.display.flip()
         self.clock.tick(0)
 
     def draw(self, row: int, col: int):
         rows, cols = self.canvas.shape
-        for i in range(-self.radius, self.radius + 1):
-            for j in range(-self.radius, self.radius + 1):
+        for i in range(-self.RADIUS, self.RADIUS + 1):
+            for j in range(-self.RADIUS, self.RADIUS + 1):
                 if 0 > row + i or row + i >= rows or 0 > col + j or col + j >= cols:
                     continue
-                if i ** 2 + j ** 2 > self.radius:
+                if i ** 2 + j ** 2 > self.RADIUS:
                     continue
                 if not self.canvas[row + i][col + j]:
                     self.canvas[row + i][col + j] = 1
                     rect = (
-                        self.unit_length * (col + j),
-                        self.heading_size + self.unit_length * (row + i),
-                        self.unit_length,
-                        self.unit_length
+                        self.UNIT_LENGTH * (col + j),
+                        self.heading_size + self.UNIT_LENGTH * (row + i),
+                        self.UNIT_LENGTH,
+                        self.UNIT_LENGTH
                     )
                     pg.draw.rect(self.surface, (0, 0, 0), rect)
 
@@ -85,12 +84,10 @@ class PaintManager:
 
 
 def paint_loop(model_file: str) -> None:
-    width, padding_top = 560, 40
     manager = PaintManager(
-        surface=pg.display.set_mode((width, width + padding_top)),
-        clock=pg.time.Clock(),
         model=joblib.load(model_file),
-        heading_size=padding_top
+        width=560,
+        heading_size=40
     )
     while True:
         for event in pg.event.get():
