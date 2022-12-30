@@ -1,9 +1,10 @@
 # neural-net-classifier
 
-A mathematical description and implementation of a neural net classifier for recognizing hand-drawn digits.
+A sample implementation of a neural net classifier for recognizing hand-drawn digits.<br>
+Detailed documentation on the mathematics used here can be found in <a href="/nnclassifier.ipynb">nnclassifier.ipynb</a>
 
-<img src="images/demo.png" alt="demo"/>
-
+<img src="images/demo.png" width="500px" alt="demo"/>
+ 
 ## Getting Started
 
 Clone and install `nnc` from source
