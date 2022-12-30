@@ -1,6 +1,6 @@
 # neural-net-classifier
 
-A sample implementation of a neural net classifier for recognizing hand-drawn digits.<br>
+A sample implementation of a neural net classifier that recognizes hand-drawn digits.<br>
 Detailed documentation on the mathematics used here can be found in <a href="/nnclassifier.ipynb">nnclassifier.ipynb</a>
 
 <img src="images/demo.png" width="500px" alt="demo"/>
